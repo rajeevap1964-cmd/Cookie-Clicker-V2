@@ -17,6 +17,7 @@ const PORT = process.env.PORT || 3000;
 
 const ADMIN_NAMES = new Set([
     "Cash"
+    "ChakraCraft"
 ]);
 
 const ADMIN_CODE = "Chain1964";
