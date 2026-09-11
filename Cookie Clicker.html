@@ -1,0 +1,2969 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+>
+
+<title>🍪 Cookie Empire</title>
+
+<link
+    href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Fredoka:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --brown-1: #160b06;
+    --brown-2: #241108;
+    --brown-3: #35180b;
+    --brown-4: #51230e;
+
+    --gold: #ffd166;
+    --gold2: #ffb52e;
+    --caramel: #d87920;
+
+    --text: #fff5df;
+    --muted: #c9aa89;
+
+    --green: #71e08a;
+    --red: #ff6868;
+}
+
+body {
+    min-height: 100vh;
+
+    background:
+        radial-gradient(circle at 50% 0%, #55240e 0%, transparent 35%),
+        radial-gradient(circle at 0% 100%, #35160a 0%, transparent 40%),
+        linear-gradient(135deg, #100703, #241006 45%, #120704);
+
+    color: var(--text);
+
+    font-family: "Baloo 2", sans-serif;
+
+    overflow-x: hidden;
+}
+
+/* =====================================================
+JOIN SCREEN
+===================================================== */
+
+#joinScreen {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background:
+        radial-gradient(circle, #59250f 0%, #1b0b05 55%, #090302 100%);
+}
+
+.joinBox {
+    width: min(470px, 92%);
+    padding: 45px 35px;
+
+    text-align: center;
+
+    border: 1px solid rgba(255, 209, 102, .35);
+    border-radius: 30px;
+
+    background: rgba(40, 16, 7, .86);
+
+    backdrop-filter: blur(25px);
+
+    box-shadow:
+        0 30px 100px rgba(0,0,0,.65),
+        0 0 60px rgba(255,166,50,.12);
+}
+
+.logoCookie {
+    width: 120px;
+    height: 120px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 70px;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle at 30% 25%,
+            #e7a15c,
+            #8a3f14 65%,
+            #3b1608
+        );
+
+    border: 5px solid #f4b65f;
+
+    box-shadow:
+        inset -15px -15px 25px rgba(0,0,0,.3),
+        0 0 50px rgba(255,177,60,.3);
+}
+
+.joinBox h1 {
+    font-family: "Fredoka", sans-serif;
+    font-size: 42px;
+
+    color: var(--gold);
+
+    text-shadow:
+        0 4px 20px rgba(255,183,49,.35);
+}
+
+.joinBox p {
+    color: var(--muted);
+    margin: 5px 0 25px;
+}
+
+input,
+select {
+    width: 100%;
+
+    border: 1px solid rgba(255,209,102,.22);
+    outline: none;
+
+    border-radius: 15px;
+
+    background: rgba(0,0,0,.25);
+
+    color: white;
+
+    padding: 15px 17px;
+
+    font: inherit;
+    font-size: 16px;
+
+    margin-bottom: 12px;
+}
+
+input:focus,
+select:focus {
+    border-color: var(--gold);
+
+    box-shadow:
+        0 0 20px rgba(255,209,102,.12);
+}
+
+button {
+    border: none;
+    cursor: pointer;
+
+    color: #351607;
+
+    font-family: "Fredoka", sans-serif;
+    font-weight: 700;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe39a,
+            #ffbd45
+        );
+
+    border-radius: 14px;
+
+    padding: 13px 18px;
+
+    box-shadow:
+        0 8px 25px rgba(255,166,40,.18);
+
+    transition: .18s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+}
+
+button:active {
+    transform: scale(.97);
+}
+
+.joinButton {
+    width: 100%;
+    padding: 16px;
+    font-size: 18px;
+}
+
+/* =====================================================
+MAIN APP
+===================================================== */
+
+#app {
+    display: none;
+    min-height: 100vh;
+}
+
+.layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* =====================================================
+SIDEBAR
+===================================================== */
+
+.sidebar {
+    width: 240px;
+
+    padding: 25px 16px;
+
+    background:
+        linear-gradient(
+            180deg,
+            rgba(52,22,10,.96),
+            rgba(20,8,4,.96)
+        );
+
+    border-right:
+        1px solid rgba(255,209,102,.12);
+
+    position: fixed;
+
+    inset: 0 auto 0 0;
+
+    z-index: 20;
+}
+
+.brand {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.brandIcon {
+    font-size: 43px;
+}
+
+.brand h2 {
+    color: var(--gold);
+
+    font-family: "Fredoka", sans-serif;
+}
+
+.nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.nav button {
+    width: 100%;
+
+    text-align: left;
+
+    color: #e9c9a6;
+
+    background: rgba(255,255,255,.035);
+
+    box-shadow: none;
+}
+
+.nav button:hover,
+.nav button.active {
+    color: #3a1807;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffd978,
+            #d87920
+        );
+}
+
+/* =====================================================
+CONTENT
+===================================================== */
+
+.content {
+    width: calc(100% - 240px);
+
+    margin-left: 240px;
+
+    padding: 25px;
+}
+
+.topbar {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 20px;
+}
+
+.topTitle h1 {
+    font-family: "Fredoka", sans-serif;
+
+    font-size: 32px;
+}
+
+.topTitle span {
+    color: var(--gold);
+}
+
+.online {
+    padding: 10px 15px;
+
+    border-radius: 20px;
+
+    background: rgba(113,224,138,.1);
+
+    color: var(--green);
+
+    border:
+        1px solid rgba(113,224,138,.2);
+}
+
+/* =====================================================
+STATS
+===================================================== */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 14px;
+
+    margin-bottom: 20px;
+}
+
+.stat {
+    padding: 18px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(79,34,15,.8),
+            rgba(35,14,7,.8)
+        );
+
+    border:
+        1px solid rgba(255,209,102,.12);
+
+    box-shadow:
+        0 15px 40px rgba(0,0,0,.2);
+}
+
+.statLabel {
+    color: var(--muted);
+
+    font-size: 14px;
+}
+
+.statValue {
+    font-family: "Fredoka", sans-serif;
+
+    color: var(--gold);
+
+    font-size: 25px;
+}
+
+/* =====================================================
+PAGES
+===================================================== */
+
+.page {
+    display: none;
+}
+
+.page.active {
+    display: block;
+}
+
+/* =====================================================
+EMPIRE
+===================================================== */
+
+.empireGrid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 350px;
+
+    gap: 20px;
+}
+
+.cookiePanel {
+    min-height: 650px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 28px;
+
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(255,173,59,.09),
+            transparent 50%
+        ),
+        rgba(39,16,7,.72);
+
+    border:
+        1px solid rgba(255,209,102,.13);
+
+    overflow: hidden;
+
+    position: relative;
+}
+
+/* =====================================================
+GIANT HTML/CSS COOKIE
+NO IMAGE
+===================================================== */
+
+.bigCookie {
+    width: min(540px, 70vh);
+    height: min(540px, 70vh);
+
+    min-width: 280px;
+    min-height: 280px;
+
+    position: relative;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    user-select: none;
+
+    background:
+        radial-gradient(
+            circle at 29% 23%,
+            #ffd38d 0%,
+            #f0ad62 15%,
+            #d8893d 34%,
+            #b45c22 59%,
+            #873b13 79%,
+            #5c2109 100%
+        );
+
+    border:
+        15px solid #54200b;
+
+    box-shadow:
+
+        inset
+        10px
+        12px
+        0
+        rgba(255,225,174,.20),
+
+        inset
+        25px
+        25px
+        45px
+        rgba(255,239,198,.15),
+
+        inset
+        -38px
+        -45px
+        65px
+        rgba(48,13,2,.48),
+
+        inset
+        0
+        0
+        0
+        5px
+        rgba(103,39,8,.28),
+
+        0
+        30px
+        65px
+        rgba(0,0,0,.58),
+
+        0
+        0
+        100px
+        rgba(255,174,62,.25);
+
+    transition:
+        transform .12s ease,
+        filter .12s ease;
+}
+
+/* COOKIE INNER RIM */
+
+.bigCookie::before {
+    content: "";
+
+    position: absolute;
+
+    inset: 11px;
+
+    border-radius: 50%;
+
+    border:
+        4px solid
+        rgba(255,220,160,.18);
+
+    box-shadow:
+        inset
+        0
+        0
+        0
+        2px
+        rgba(75,24,5,.12);
+
+    pointer-events: none;
+}
+
+/* COOKIE SHINE */
+
+.bigCookie::after {
+    content: "";
+
+    position: absolute;
+
+    width: 46%;
+    height: 22%;
+
+    top: 7%;
+    left: 17%;
+
+    border-radius: 50%;
+
+    background:
+        radial-gradient(
+            ellipse,
+            rgba(255,255,255,.30),
+            rgba(255,255,255,.10) 35%,
+            transparent 72%
+        );
+
+    transform:
+        rotate(-18deg);
+
+    filter:
+        blur(1px);
+
+    pointer-events: none;
+}
+
+/* COOKIE CRUST */
+
+.cookieCrust {
+    position: absolute;
+
+    inset: 3.5%;
+
+    border-radius: 50%;
+
+    box-shadow:
+
+        inset
+        0
+        0
+        0
+        6px
+        rgba(94,32,7,.14),
+
+        inset
+        0
+        -18px
+        30px
+        rgba(58,17,2,.17);
+
+    pointer-events: none;
+}
+
+/* =====================================================
+CHOCOLATE CHIPS
+===================================================== */
+
+.chip {
+    position: absolute;
+
+    width: 8.5%;
+    height: 6.5%;
+
+    border-radius:
+        45%
+        55%
+        50%
+        40%;
+
+    background:
+        linear-gradient(
+            145deg,
+            #6b2709 0%,
+            #431706 45%,
+            #210a02 100%
+        );
+
+    box-shadow:
+
+        inset
+        3px
+        2px
+        4px
+        rgba(255,190,100,.15),
+
+        inset
+        -3px
+        -3px
+        4px
+        rgba(0,0,0,.35),
+
+        4px
+        6px
+        8px
+        rgba(55,15,2,.38);
+
+    pointer-events: none;
+}
+
+.chip::after {
+    content: "";
+
+    position: absolute;
+
+    width: 35%;
+    height: 20%;
+
+    left: 17%;
+    top: 13%;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255,205,130,.15);
+
+    transform: rotate(-15deg);
+}
+
+/* CHIP POSITIONS */
+
+.chip1 {
+    left: 20%;
+    top: 22%;
+    transform: rotate(-20deg);
+}
+
+.chip2 {
+    left: 43%;
+    top: 17%;
+    transform: rotate(25deg);
+}
+
+.chip3 {
+    left: 66%;
+    top: 26%;
+    transform: rotate(-35deg);
+}
+
+.chip4 {
+    left: 31%;
+    top: 39%;
+    transform: rotate(15deg);
+}
+
+.chip5 {
+    left: 54%;
+    top: 38%;
+    transform: rotate(-15deg);
+}
+
+.chip6 {
+    left: 74%;
+    top: 47%;
+    transform: rotate(35deg);
+}
+
+.chip7 {
+    left: 17%;
+    top: 51%;
+    transform: rotate(30deg);
+}
+
+.chip8 {
+    left: 41%;
+    top: 59%;
+    transform: rotate(-25deg);
+}
+
+.chip9 {
+    left: 64%;
+    top: 64%;
+    transform: rotate(18deg);
+}
+
+.chip10 {
+    left: 26%;
+    top: 70%;
+    transform: rotate(-40deg);
+}
+
+.chip11 {
+    left: 51%;
+    top: 29%;
+    transform: rotate(40deg);
+}
+
+.chip12 {
+    left: 76%;
+    top: 68%;
+    transform: rotate(-20deg);
+}
+
+/* EXTRA CHIPS */
+
+.chip13 {
+    left: 11%;
+    top: 35%;
+    transform: rotate(10deg) scale(.75);
+}
+
+.chip14 {
+    left: 37%;
+    top: 27%;
+    transform: rotate(-45deg) scale(.75);
+}
+
+.chip15 {
+    left: 58%;
+    top: 53%;
+    transform: rotate(30deg) scale(.75);
+}
+
+.chip16 {
+    left: 33%;
+    top: 54%;
+    transform: rotate(-10deg) scale(.75);
+}
+
+.chip17 {
+    left: 70%;
+    top: 39%;
+    transform: rotate(45deg) scale(.75);
+}
+
+.chip18 {
+    left: 47%;
+    top: 73%;
+    transform: rotate(-25deg) scale(.75);
+}
+
+/* COOKIE HOVER */
+
+.bigCookie:hover {
+    filter:
+        brightness(1.08)
+        saturate(1.08);
+
+    transform:
+        scale(1.025)
+        rotate(-1deg);
+}
+
+/* COOKIE CLICK */
+
+.bigCookie:active {
+    transform:
+        scale(.93)
+        rotate(1deg);
+
+    filter:
+        brightness(.96);
+}
+
+/* =====================================================
+CLICK TEXT
+===================================================== */
+
+.clickText {
+    margin-top: 25px;
+
+    color: var(--muted);
+
+    font-size: 16px;
+
+    text-align: center;
+}
+
+.cookiesBig {
+    font-family: "Fredoka", sans-serif;
+
+    font-size: 35px;
+
+    color: white;
+
+    margin-bottom: 5px;
+
+    text-shadow:
+        0 4px 20px rgba(0,0,0,.35);
+}
+
+/* =====================================================
+SIDE CARDS
+===================================================== */
+
+.card {
+    padding: 20px;
+
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(70,29,12,.8),
+            rgba(25,10,5,.85)
+        );
+
+    border:
+        1px solid rgba(255,209,102,.12);
+
+    margin-bottom: 15px;
+}
+
+.card h2 {
+    font-family: "Fredoka", sans-serif;
+
+    margin-bottom: 14px;
+
+    color: var(--gold);
+}
+
+.bigUpgradeButton {
+    width: 100%;
+
+    padding: 17px;
+
+    font-size: 17px;
+}
+
+.cost {
+    color: var(--gold);
+
+    margin-top: 7px;
+}
+
+/* =====================================================
+UPGRADES
+===================================================== */
+
+.upgradeTabs {
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+.tab {
+    color: #d8b692;
+
+    background:
+        rgba(255,255,255,.04);
+
+    box-shadow: none;
+}
+
+.tab.active {
+    color: #341506;
+
+    background:
+        linear-gradient(
+            135deg,
+            #ffe18b,
+            #d87920
+        );
+}
+
+.upgradeList {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(260px, 1fr)
+        );
+
+    gap: 13px;
+}
+
+.upgrade {
+    padding: 18px;
+
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(72,30,12,.75),
+            rgba(28,11,5,.9)
+        );
+
+    border:
+        1px solid rgba(255,209,102,.1);
+}
+
+.upgradeTop {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+}
+
+.upgrade h3 {
+    color: white;
+}
+
+.upgrade small {
+    color: var(--muted);
+}
+
+.upgradeInfo {
+    margin: 12px 0;
+
+    color: #e3c5a3;
+}
+
+.upgrade button {
+    width: 100%;
+}
+
+.level {
+    color: var(--gold);
+}
+
+/* =====================================================
+LEADERBOARD
+===================================================== */
+
+.leaderboard {
+    overflow: hidden;
+
+    border-radius: 22px;
+
+    border:
+        1px solid rgba(255,209,102,.1);
+}
+
+.leaderRow {
+    display: grid;
+
+    grid-template-columns:
+        70px
+        1fr
+        180px
+        120px;
+
+    padding: 15px 18px;
+
+    background:
+        rgba(255,255,255,.025);
+
+    border-bottom:
+        1px solid rgba(255,255,255,.04);
+}
+
+.leaderRow:first-child {
+    background:
+        rgba(255,209,102,.09);
+}
+
+.rank {
+    color: var(--gold);
+
+    font-weight: 800;
+}
+
+/* =====================================================
+ADMIN
+===================================================== */
+
+.adminWarning {
+    padding: 15px;
+
+    border-radius: 15px;
+
+    background:
+        rgba(255,104,104,.08);
+
+    border:
+        1px solid rgba(255,104,104,.2);
+
+    color: #ffaaaa;
+
+    margin-bottom: 15px;
+}
+
+.adminGrid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 15px;
+}
+
+.adminButton {
+    width: 100%;
+
+    margin-top: 8px;
+}
+
+.abuse {
+    border-color:
+        rgba(255,72,72,.25);
+}
+
+.abuse button {
+    background:
+        linear-gradient(
+            135deg,
+            #ffb16b,
+            #ff6868
+        );
+}
+
+/* =====================================================
+ANNOUNCEMENT
+===================================================== */
+
+#announcement {
+    position: fixed;
+
+    top: 20px;
+    left: 50%;
+
+    transform:
+        translateX(-50%)
+        translateY(-150px);
+
+    z-index: 200;
+
+    width: min(650px,90%);
+
+    padding: 16px 20px;
+
+    border-radius: 17px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(91,39,13,.97),
+            rgba(32,12,5,.97)
+        );
+
+    border:
+        1px solid rgba(255,209,102,.3);
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.5);
+
+    transition: .35s;
+
+    text-align: center;
+}
+
+#announcement.show {
+    transform:
+        translateX(-50%)
+        translateY(0);
+}
+
+#announcement strong {
+    color: var(--gold);
+}
+
+/* =====================================================
+TOAST
+===================================================== */
+
+#toast {
+    position: fixed;
+
+    right: 20px;
+    bottom: 20px;
+
+    z-index: 500;
+
+    padding: 13px 18px;
+
+    border-radius: 14px;
+
+    background: #321407;
+
+    border:
+        1px solid rgba(255,209,102,.25);
+
+    color: white;
+
+    transform:
+        translateY(100px);
+
+    transition: .3s;
+}
+
+#toast.show {
+    transform:
+        translateY(0);
+}
+
+/* =====================================================
+RESPONSIVE
+===================================================== */
+
+@media(max-width:900px) {
+
+    .sidebar {
+        width: 80px;
+    }
+
+    .brand h2,
+    .nav button span {
+        display: none;
+    }
+
+    .content {
+        width: calc(100% - 80px);
+
+        margin-left: 80px;
+    }
+
+    .stats {
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .empireGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .bigCookie {
+        width: min(500px, 68vw);
+        height: min(500px, 68vw);
+    }
+}
+
+@media(max-width:600px) {
+
+    .content {
+        padding: 14px;
+    }
+
+    .stats {
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .cookiePanel {
+        min-height: 520px;
+    }
+
+    .bigCookie {
+        width: 290px;
+        height: 290px;
+
+        border-width: 10px;
+    }
+
+    .adminGrid {
+        grid-template-columns: 1fr;
+    }
+
+    .leaderRow {
+        grid-template-columns:
+            45px
+            1fr
+            100px;
+    }
+
+    .leaderRow .hideMobile {
+        display: none;
+    }
+
+    .cookiesBig {
+        font-size: 27px;
+    }
+}
+
+@media(max-width:380px) {
+
+    .bigCookie {
+        width: 245px;
+        height: 245px;
+    }
+
+    .cookiePanel {
+        min-height: 450px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- =====================================================
+JOIN
+===================================================== -->
+
+<div id="joinScreen">
+
+    <div class="joinBox">
+
+        <div class="logoCookie">
+            🍪
+        </div>
+
+        <h1>Cookie Empire</h1>
+
+        <p>
+            Choose your nickname to enter the global empire.
+        </p>
+
+        <input
+            id="nickname"
+            maxlength="20"
+            placeholder="Your nickname..."
+        >
+
+        <button
+            class="joinButton"
+            onclick="joinEmpire()"
+        >
+            🍪 Enter Empire
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+APP
+===================================================== -->
+
+<div id="app">
+
+<div class="layout">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar">
+
+        <div class="brand">
+
+            <div class="brandIcon">
+                🍪
+            </div>
+
+            <h2>
+                Cookie Empire
+            </h2>
+
+        </div>
+
+        <div class="nav">
+
+            <button
+                class="active"
+                onclick="showPage('empire',this)"
+            >
+                🍪 <span>Empire</span>
+            </button>
+
+            <button
+                onclick="showPage('upgrades',this)"
+            >
+                ⚡ <span>Upgrades</span>
+            </button>
+
+            <button
+                onclick="showPage('leaderboard',this)"
+            >
+                🏆 <span>Leaderboard</span>
+            </button>
+
+            <button
+                id="adminNav"
+                style="display:none"
+                onclick="openAdmin()"
+            >
+                🔐 <span>Admin Panel</span>
+            </button>
+
+        </div>
+
+    </aside>
+
+
+    <!-- CONTENT -->
+
+    <main class="content">
+
+        <div class="topbar">
+
+            <div class="topTitle">
+
+                <h1>
+                    Welcome,
+                    <span id="playerName">
+                        Player
+                    </span>
+                </h1>
+
+            </div>
+
+            <div class="online">
+                ● Global Empire
+            </div>
+
+        </div>
+
+
+        <!-- STATS -->
+
+        <div class="stats">
+
+            <div class="stat">
+
+                <div class="statLabel">
+                    🍪 Cookies
+                </div>
+
+                <div
+                    class="statValue"
+                    id="cookies"
+                >
+                    0
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <div class="statLabel">
+                    🖱️ Per Click
+                </div>
+
+                <div
+                    class="statValue"
+                    id="perClick"
+                >
+                    1
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <div class="statLabel">
+                    ⚡ CPS
+                </div>
+
+                <div
+                    class="statValue"
+                    id="cps"
+                >
+                    0
+                </div>
+
+            </div>
+
+            <div class="stat">
+
+                <div class="statLabel">
+                    👑 PR
+                </div>
+
+                <div
+                    class="statValue"
+                    id="pr"
+                >
+                    0
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+        EMPIRE PAGE
+        ================================================= -->
+
+        <section
+            id="empire"
+            class="page active"
+        >
+
+            <div class="empireGrid">
+
+                <div class="cookiePanel">
+
+                    <div
+                        class="cookiesBig"
+                        id="cookieCounter"
+                    >
+                        0 Cookies
+                    </div>
+
+
+                    <!-- GIANT COOKIE -->
+
+                    <div
+                        class="bigCookie"
+                        onclick="clickCookie()"
+                        aria-label="Giant Cookie"
+                    >
+
+                        <div class="cookieCrust"></div>
+
+                        <div class="chip chip1"></div>
+                        <div class="chip chip2"></div>
+                        <div class="chip chip3"></div>
+                        <div class="chip chip4"></div>
+                        <div class="chip chip5"></div>
+                        <div class="chip chip6"></div>
+                        <div class="chip chip7"></div>
+                        <div class="chip chip8"></div>
+                        <div class="chip chip9"></div>
+                        <div class="chip chip10"></div>
+                        <div class="chip chip11"></div>
+                        <div class="chip chip12"></div>
+                        <div class="chip chip13"></div>
+                        <div class="chip chip14"></div>
+                        <div class="chip chip15"></div>
+                        <div class="chip chip16"></div>
+                        <div class="chip chip17"></div>
+                        <div class="chip chip18"></div>
+
+                    </div>
+
+
+                    <div class="clickText">
+                        Click the cookie to build your empire!
+                    </div>
+
+                </div>
+
+
+                <div>
+
+                    <div class="card">
+
+                        <h2>
+                            🖱️ Click Power
+                        </h2>
+
+                        <p>
+                            Increase cookies earned per click.
+                        </p>
+
+                        <p class="cost">
+                            Next cost:
+                            <strong id="clickCost">
+                                25
+                            </strong>
+                            🍪
+                        </p>
+
+                        <button
+                            class="bigUpgradeButton"
+                            onclick="buyClickUpgrade()"
+                        >
+                            ⚡ Upgrade Click
+                        </button>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <h2>
+                            ⚡ Per Second
+                        </h2>
+
+                        <p>
+                            Buy CPS upgrades to automatically
+                            generate cookies every second.
+                        </p>
+
+                        <p class="cost">
+                            Your CPS:
+                            <strong id="sideCps">
+                                0
+                            </strong>
+                        </p>
+
+                        <button
+                            class="bigUpgradeButton"
+                            onclick="showPage('upgrades')"
+                        >
+                            ⚡ View CPS Upgrades
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+        UPGRADES
+        ================================================= -->
+
+        <section
+            id="upgrades"
+            class="page"
+        >
+
+            <div class="upgradeTabs">
+
+                <button
+                    class="tab active"
+                    onclick="upgradeTab('cps',this)"
+                >
+                    ⚡ Per Second
+                </button>
+
+                <button
+                    class="tab"
+                    onclick="upgradeTab('click',this)"
+                >
+                    🖱️ Per Click
+                </button>
+
+            </div>
+
+
+            <div
+                id="cpsUpgrades"
+                class="upgradeList"
+            ></div>
+
+
+            <div
+                id="clickUpgrades"
+                class="upgradeList"
+                style="display:none"
+            >
+
+                <div class="upgrade">
+
+                    <div class="upgradeTop">
+
+                        <h3>
+                            🖱️ Cookie Finger
+                        </h3>
+
+                        <span class="level">
+                            LVL
+                            <strong id="clickLevel">
+                                0
+                            </strong>
+                        </span>
+
+                    </div>
+
+                    <div class="upgradeInfo">
+                        +1 Cookie Per Click
+                    </div>
+
+                    <button onclick="buyClickUpgrade()">
+                        Upgrade
+                    </button>
+
+                    <div class="cost">
+                        Cost:
+                        <strong id="clickCost2">
+                            25
+                        </strong>
+                        🍪
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+        LEADERBOARD
+        ================================================= -->
+
+        <section
+            id="leaderboard"
+            class="page"
+        >
+
+            <div class="card">
+
+                <h2>
+                    🏆 Global Leaderboard
+                </h2>
+
+                <div
+                    id="leaderboardList"
+                    class="leaderboard"
+                ></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+        ADMIN
+        ================================================= -->
+
+        <section
+            id="admin"
+            class="page"
+        >
+
+            <div class="adminWarning">
+                🔐 Admin controls affect the global multiplayer empire.
+            </div>
+
+
+            <div class="adminGrid">
+
+                <div class="card">
+
+                    <h2>
+                        👤 Player Stats
+                    </h2>
+
+                    <input
+                        id="adminTarget"
+                        placeholder="Target nickname"
+                    >
+
+                    <input
+                        id="adminCookies"
+                        type="number"
+                        placeholder="Set Cookies"
+                    >
+
+                    <input
+                        id="adminPerClick"
+                        type="number"
+                        placeholder="Set Per Click"
+                    >
+
+                    <input
+                        id="adminCps"
+                        type="number"
+                        placeholder="Set CPS"
+                    >
+
+                    <input
+                        id="adminPr"
+                        type="number"
+                        placeholder="Set PR"
+                    >
+
+                    <button
+                        class="adminButton"
+                        onclick="adminStats()"
+                    >
+                        Apply Stats
+                    </button>
+
+                </div>
+
+
+                <div class="card abuse">
+
+                    <h2>
+                        💥 Global Admin Abuse
+                    </h2>
+
+                    <select id="abuseTarget">
+
+                        <option value="ALL">
+                            ALL
+                        </option>
+
+                        <option value="COOKIES">
+                            Cookies
+                        </option>
+
+                        <option value="PERCLICK">
+                            Per Click
+                        </option>
+
+                        <option value="CPS">
+                            CPS
+                        </option>
+
+                        <option value="PR">
+                            PR
+                        </option>
+
+                    </select>
+
+                    <input
+                        id="abuseMultiplier"
+                        type="number"
+                        value="2"
+                        min="0.1"
+                        step="0.1"
+                        placeholder="Multiplier"
+                    >
+
+                    <input
+                        id="abuseDuration"
+                        type="number"
+                        value="60"
+                        min="1"
+                        placeholder="Duration seconds"
+                    >
+
+                    <button
+                        class="adminButton"
+                        onclick="startAbuse()"
+                    >
+                        💥 Start Global Abuse
+                    </button>
+
+                    <button
+                        class="adminButton"
+                        onclick="stopAbuse()"
+                    >
+                        🛑 Stop Abuse
+                    </button>
+
+                </div>
+
+
+                <div class="card">
+
+                    <h2>
+                        📢 Global Message
+                    </h2>
+
+                    <input
+                        id="globalMessage"
+                        maxlength="200"
+                        placeholder="Message to everyone..."
+                    >
+
+                    <button
+                        class="adminButton"
+                        onclick="sendGlobalMessage()"
+                    >
+                        📢 Send to Everyone
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+</div>
+
+</div>
+
+
+<div id="announcement"></div>
+<div id="toast"></div>
+
+
+<script>
+
+let socket = null;
+let currentPlayer = null;
+let adminUnlocked = false;
+
+const localKey = "cookieEmpireLocal";
+
+
+// =====================================================
+// LOCAL STORAGE
+// =====================================================
+
+function loadLocal() {
+
+    try {
+
+        return JSON.parse(
+            localStorage.getItem(localKey)
+        ) || {};
+
+    } catch {
+
+        return {};
+
+    }
+
+}
+
+function saveLocal() {
+
+    const data = loadLocal();
+
+    data.nickname =
+        currentPlayer?.nickname || data.nickname;
+
+    localStorage.setItem(
+        localKey,
+        JSON.stringify(data)
+    );
+}
+
+
+// =====================================================
+// FORMAT
+// =====================================================
+
+function formatNumber(number) {
+
+    number = Number(number) || 0;
+
+    if (number < 1000) {
+
+        return Math.floor(number)
+            .toLocaleString();
+
+    }
+
+    const units = [
+        "",
+        "K",
+        "M",
+        "B",
+        "T",
+        "Q",
+        "Qi",
+        "Sx",
+        "Sp",
+        "Oc",
+        "No",
+        "Dc"
+    ];
+
+    const index =
+        Math.floor(
+            Math.log10(
+                Math.abs(number)
+            ) / 3
+        );
+
+    const safeIndex =
+        Math.min(
+            index,
+            units.length - 1
+        );
+
+    return (
+        number /
+        Math.pow(1000, safeIndex)
+    ).toFixed(2)
+    + units[safeIndex];
+
+}
+
+
+// =====================================================
+// JOIN
+// =====================================================
+
+function joinEmpire() {
+
+    const input =
+        document.getElementById("nickname");
+
+    const nickname =
+        input.value.trim();
+
+    if (!nickname) {
+
+        toast(
+            "Enter a nickname first."
+        );
+
+        return;
+    }
+
+    connect(nickname);
+}
+
+document
+    .getElementById("nickname")
+    .addEventListener(
+        "keydown",
+        e => {
+
+            if (e.key === "Enter") {
+
+                joinEmpire();
+
+            }
+
+        }
+    );
+
+
+// =====================================================
+// WEBSOCKET
+// =====================================================
+
+function connect(nickname) {
+
+    const protocol =
+        location.protocol === "https:"
+            ? "wss:"
+            : "ws:";
+
+    const host =
+        location.host ||
+        "localhost:3000";
+
+    socket =
+        new WebSocket(
+            protocol +
+            "//" +
+            host
+        );
+
+    socket.onopen = () => {
+
+        socket.send(
+            JSON.stringify({
+
+                type: "join",
+
+                nickname
+
+            })
+        );
+
+    };
+
+    socket.onmessage = event => {
+
+        let data;
+
+        try {
+
+            data =
+                JSON.parse(
+                    event.data
+                );
+
+        } catch {
+
+            return;
+
+        }
+
+        handleMessage(data);
+
+    };
+
+    socket.onclose = () => {
+
+        toast(
+            "Disconnected from the empire."
+        );
+
+    };
+
+    socket.onerror = () => {
+
+        toast(
+            "Could not connect to server."
+        );
+
+    };
+
+}
+
+
+// =====================================================
+// SERVER MESSAGES
+// =====================================================
+
+function handleMessage(data) {
+
+    if (data.type === "joined") {
+
+        currentPlayer =
+            data.player;
+
+        document
+            .getElementById("joinScreen")
+            .style.display = "none";
+
+        document
+            .getElementById("app")
+            .style.display = "block";
+
+        document
+            .getElementById("playerName")
+            .textContent =
+            currentPlayer.nickname;
+
+        if (data.admin) {
+
+            document
+                .getElementById("adminNav")
+                .style.display = "block";
+
+        }
+
+        saveLocal();
+
+        updateUI();
+
+        return;
+    }
+
+
+    if (data.type === "player") {
+
+        currentPlayer =
+            data.player;
+
+        updateUI();
+
+        return;
+    }
+
+
+    if (data.type === "leaderboard") {
+
+        renderLeaderboard(
+            data.leaderboard
+        );
+
+        return;
+    }
+
+
+    if (data.type === "adminUnlocked") {
+
+        adminUnlocked = true;
+
+        toast(
+            "🔐 Admin panel unlocked!"
+        );
+
+        showPage("admin");
+
+        return;
+    }
+
+
+    if (data.type === "purchaseSuccess") {
+
+        updateUI();
+
+        return;
+    }
+
+
+    if (data.type === "error") {
+
+        toast(
+            "⚠️ " +
+            data.message
+        );
+
+        return;
+    }
+
+
+    if (data.type === "adminSuccess") {
+
+        toast(
+            "✅ " +
+            data.message
+        );
+
+        return;
+    }
+
+
+    if (data.type === "globalAbuse") {
+
+        showAnnouncement(
+
+            `💥 <strong>
+            ${escapeHtml(data.sender)}
+            </strong>
+            activated
+            <strong>
+            ${data.multiplier}x
+            </strong>
+            ${escapeHtml(data.target)}
+            for
+            <strong>
+            ${data.duration}s
+            </strong>!`
+
+        );
+
+        return;
+    }
+
+
+    if (data.type === "globalAbuseStop") {
+
+        showAnnouncement(
+
+            `🛑 Global abuse stopped by
+            <strong>
+            ${escapeHtml(data.sender)}
+            </strong>.`
+
+        );
+
+        return;
+    }
+
+
+    if (data.type === "globalMessage") {
+
+        showAnnouncement(
+
+            `📢
+            <strong>
+            ${escapeHtml(data.sender)}
+            </strong>
+            — 
+            ${escapeHtml(data.message)}`
+
+        );
+
+        return;
+    }
+
+}
+
+
+// =====================================================
+// UI
+// =====================================================
+
+function updateUI() {
+
+    if (!currentPlayer) {
+        return;
+    }
+
+    document
+        .getElementById("cookies")
+        .textContent =
+        formatNumber(
+            currentPlayer.cookies
+        );
+
+    document
+        .getElementById("cookieCounter")
+        .textContent =
+        formatNumber(
+            currentPlayer.cookies
+        )
+        + " Cookies";
+
+    document
+        .getElementById("perClick")
+        .textContent =
+        formatNumber(
+            currentPlayer.perClick
+        );
+
+    document
+        .getElementById("cps")
+        .textContent =
+        formatNumber(
+            currentPlayer.cps
+        );
+
+    document
+        .getElementById("sideCps")
+        .textContent =
+        formatNumber(
+            currentPlayer.cps
+        );
+
+    document
+        .getElementById("pr")
+        .textContent =
+        formatNumber(
+            currentPlayer.pr
+        );
+
+    document
+        .getElementById("clickLevel")
+        .textContent =
+        currentPlayer.clickLevel;
+
+    updateCosts();
+
+    renderCpsUpgrades();
+
+}
+
+
+// =====================================================
+// CLICK
+// =====================================================
+
+function clickCookie() {
+
+    if (
+        !socket ||
+        socket.readyState !==
+        WebSocket.OPEN
+    ) {
+
+        return;
+
+    }
+
+    socket.send(
+        JSON.stringify({
+
+            type: "click"
+
+        })
+    );
+
+}
+
+
+// =====================================================
+// COSTS
+// =====================================================
+
+function getClientCost(base, level) {
+
+    return Math.floor(
+        base *
+        Math.pow(
+            1.15,
+            level
+        )
+    );
+
+}
+
+function updateCosts() {
+
+    if (!currentPlayer) {
+        return;
+    }
+
+    const clickCost =
+        getClientCost(
+            25,
+            currentPlayer.clickLevel
+        );
+
+    document
+        .getElementById("clickCost")
+        .textContent =
+        formatNumber(clickCost);
+
+    document
+        .getElementById("clickCost2")
+        .textContent =
+        formatNumber(clickCost);
+
+}
+
+
+// =====================================================
+// CLICK UPGRADE
+// =====================================================
+
+function buyClickUpgrade() {
+
+    if (!socket) {
+        return;
+    }
+
+    socket.send(
+        JSON.stringify({
+
+            type:
+                "buyClickUpgrade"
+
+        })
+    );
+
+}
+
+
+// =====================================================
+// CPS UPGRADES
+// =====================================================
+
+function renderCpsUpgrades() {
+
+    const container =
+        document.getElementById(
+            "cpsUpgrades"
+        );
+
+    if (
+        !container ||
+        !currentPlayer
+    ) {
+
+        return;
+
+    }
+
+    let html = "";
+
+    for (
+        let i = 1;
+        i <= 180;
+        i++
+    ) {
+
+        const level =
+            currentPlayer
+                .cpsLevels[i] || 0;
+
+        const baseCost =
+            Math.pow(
+                1.18,
+                i
+            ) * 10;
+
+        const cost =
+            getClientCost(
+                baseCost,
+                level
+            );
+
+        html += `
+
+        <div class="upgrade">
+
+            <div class="upgradeTop">
+
+                <h3>
+                    ⚡ CPS Upgrade #${i}
+                </h3>
+
+                <span class="level">
+                    LVL ${level}
+                </span>
+
+            </div>
+
+            <div class="upgradeInfo">
+                +${i} Cookies Per Second
+            </div>
+
+            <button
+                onclick="buyCpsUpgrade(${i})"
+            >
+                Buy Upgrade
+            </button>
+
+            <div class="cost">
+                Cost:
+                <strong>
+                    ${formatNumber(cost)}
+                </strong>
+                🍪
+            </div>
+
+        </div>
+
+        `;
+
+    }
+
+    container.innerHTML =
+        html;
+
+}
+
+
+function buyCpsUpgrade(id) {
+
+    if (!socket) {
+        return;
+    }
+
+    socket.send(
+        JSON.stringify({
+
+            type:
+                "buyCpsUpgrade",
+
+            upgradeId:
+                id
+
+        })
+    );
+
+}
+
+
+// =====================================================
+// PAGE NAVIGATION
+// =====================================================
+
+function showPage(page, button) {
+
+    document
+        .querySelectorAll(".page")
+        .forEach(
+            p =>
+                p.classList.remove(
+                    "active"
+                )
+        );
+
+    const target =
+        document.getElementById(
+            page
+        );
+
+    if (target) {
+
+        target.classList.add(
+            "active"
+        );
+
+    }
+
+    document
+        .querySelectorAll(
+            ".nav button"
+        )
+        .forEach(
+            b =>
+                b.classList.remove(
+                    "active"
+                )
+        );
+
+    if (button) {
+
+        button.classList.add(
+            "active"
+        );
+
+    }
+
+}
+
+
+// =====================================================
+// UPGRADE TABS
+// =====================================================
+
+function upgradeTab(
+    type,
+    button
+) {
+
+    document
+        .querySelectorAll(".tab")
+        .forEach(
+            b =>
+                b.classList.remove(
+                    "active"
+                )
+        );
+
+    button.classList.add(
+        "active"
+    );
+
+    if (type === "cps") {
+
+        document
+            .getElementById(
+                "cpsUpgrades"
+            )
+            .style.display =
+            "grid";
+
+        document
+            .getElementById(
+                "clickUpgrades"
+            )
+            .style.display =
+            "none";
+
+    } else {
+
+        document
+            .getElementById(
+                "cpsUpgrades"
+            )
+            .style.display =
+            "none";
+
+        document
+            .getElementById(
+                "clickUpgrades"
+            )
+            .style.display =
+            "grid";
+
+    }
+
+}
+
+
+// =====================================================
+// LEADERBOARD
+// =====================================================
+
+function renderLeaderboard(list) {
+
+    const container =
+        document.getElementById(
+            "leaderboardList"
+        );
+
+    if (
+        !list ||
+        list.length === 0
+    ) {
+
+        container.innerHTML =
+
+            `<div
+                style="
+                    padding:20px;
+                    color:#c9aa89
+                "
+            >
+                No players online yet.
+            </div>`;
+
+        return;
+    }
+
+    container.innerHTML =
+        list.map(
+            p => `
+
+            <div class="leaderRow">
+
+                <div class="rank">
+                    #${p.rank}
+                </div>
+
+                <div>
+                    ${escapeHtml(
+                        p.nickname
+                    )}
+                </div>
+
+                <div>
+                    🍪
+                    ${formatNumber(
+                        p.cookies
+                    )}
+                </div>
+
+                <div class="hideMobile">
+                    ⚡
+                    ${formatNumber(
+                        p.cps
+                    )}
+                </div>
+
+            </div>
+
+            `
+        ).join("");
+
+}
+
+
+// =====================================================
+// ADMIN
+// =====================================================
+
+function openAdmin() {
+
+    if (adminUnlocked) {
+
+        showPage("admin");
+
+        return;
+
+    }
+
+    const code =
+        prompt(
+            "Enter Admin Code:"
+        );
+
+    if (!code) {
+        return;
+    }
+
+    socket.send(
+        JSON.stringify({
+
+            type:
+                "adminUnlock",
+
+            code
+
+        })
+    );
+
+}
+
+
+function adminStats() {
+
+    if (!adminUnlocked) {
+
+        toast(
+            "Admin permission required."
+        );
+
+        return;
+
+    }
+
+    const target =
+        document
+            .getElementById(
+                "adminTarget"
+            )
+            .value
+            .trim();
+
+    if (!target) {
+
+        toast(
+            "Enter a target nickname."
+        );
+
+        return;
+
+    }
+
+    socket.send(
+        JSON.stringify({
+
+            type:
+                "adminStats",
+
+            target,
+
+            cookies:
+                document
+                    .getElementById(
+                        "adminCookies"
+                    ).value,
+
+            perClick:
+                document
+                    .getElementById(
+                        "adminPerClick"
+                    ).value,
+
+            cps:
+                document
+                    .getElementById(
+                        "adminCps"
+                    ).value,
+
+            pr:
+                document
+                    .getElementById(
+                        "adminPr"
+                    ).value
+
+        })
+    );
+
+}
+
+
+// =====================================================
+// GLOBAL ABUSE
+// =====================================================
+
+function startAbuse() {
+
+    if (!adminUnlocked) {
+
+        toast(
+            "Admin permission required."
+        );
+
+        return;
+
+    }
+
+    const target =
+        document
+            .getElementById(
+                "abuseTarget"
+            )
+            .value;
+
+    const multiplier =
+        Number(
+            document
+                .getElementById(
+                    "abuseMultiplier"
+                ).value
+        );
+
+    const duration =
+        Number(
+            document
+                .getElementById(
+                    "abuseDuration"
+                ).value
+        );
+
+    socket.send(
+        JSON.stringify({
+
+            type:
+                "globalAdminAbuse",
+
+            target,
+
+            multiplier,
+
+            duration
+
+        })
+    );
+
+}
+
+
+function stopAbuse() {
+
+    socket.send(
+        JSON.stringify({
+
+            type:
+                "stopGlobalAbuse"
+
+        })
+    );
+
+}
+
+
+// =====================================================
+// GLOBAL MESSAGE
+// =====================================================
+
+function sendGlobalMessage() {
+
+    const input =
+        document.getElementById(
+            "globalMessage"
+        );
+
+    const message =
+        input.value.trim();
+
+    if (!message) {
+        return;
+    }
+
+    socket.send(
+        JSON.stringify({
+
+            type:
+                "globalMessage",
+
+            message
+
+        })
+    );
+
+    input.value = "";
+
+}
+
+
+// =====================================================
+// ANNOUNCEMENT
+// =====================================================
+
+let announcementTimer;
+
+function showAnnouncement(html) {
+
+    const box =
+        document.getElementById(
+            "announcement"
+        );
+
+    box.innerHTML =
+        html;
+
+    box.classList.add(
+        "show"
+    );
+
+    clearTimeout(
+        announcementTimer
+    );
+
+    announcementTimer =
+        setTimeout(
+            () => {
+
+                box.classList.remove(
+                    "show"
+                );
+
+            },
+            6000
+        );
+
+}
+
+
+// =====================================================
+// TOAST
+// =====================================================
+
+let toastTimer;
+
+function toast(message) {
+
+    const box =
+        document.getElementById(
+            "toast"
+        );
+
+    box.textContent =
+        message;
+
+    box.classList.add(
+        "show"
+    );
+
+    clearTimeout(
+        toastTimer
+    );
+
+    toastTimer =
+        setTimeout(
+            () => {
+
+                box.classList.remove(
+                    "show"
+                );
+
+            },
+            3000
+        );
+
+}
+
+
+// =====================================================
+// SECURITY
+// =====================================================
+
+function escapeHtml(text) {
+
+    return String(text)
+
+        .replace(
+            /&/g,
+            "&amp;"
+        )
+
+        .replace(
+            /</g,
+            "&lt;"
+        )
+
+        .replace(
+            />/g,
+            "&gt;"
+        )
+
+        .replace(
+            /"/g,
+            "&quot;"
+        )
+
+        .replace(
+            /'/g,
+            "&#039;"
+        );
+
+}
+
+
+// =====================================================
+// AUTO LOAD SAVED NICKNAME
+// =====================================================
+
+const saved =
+    loadLocal();
+
+if (saved.nickname) {
+
+    document
+        .getElementById(
+            "nickname"
+        )
+        .value =
+        saved.nickname;
+
+}
+
+</script>
+
+</body>
+</html>
